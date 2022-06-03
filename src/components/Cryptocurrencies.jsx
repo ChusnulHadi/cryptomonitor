@@ -12,8 +12,10 @@ const Cryptocurrencies = ({ simplified }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
+    setCryptos(cryptoList?.data?.coins);
+
     const filterredCryptos = cryptoList?.data?.coins.filter((crypto) =>
-      crypto.name.toLowerCase().includes(searchTerm.toLowerCase())
+      crypto.name.toLowerCase().includes(searchTerm)
     );
 
     setCryptos(filterredCryptos);
@@ -28,22 +30,23 @@ const Cryptocurrencies = ({ simplified }) => {
           <Input
             placeholder="Search Cryptocurrency"
             onChange={(e) => {
-              setSearchTerm(e.target.value);
+              setSearchTerm(e.target.value.toLowerCase());
             }}
           />
         </div>
       )}
       <Row gutter={[32, 32]} className="crypto-card-container">
-        {cryptos?.map((currency) => (
+        {cryptos?.map((currency) => 
+        (
           <Col
             xs={24}
             sm={12}
             lg={6}
             className="crypto-card"
             span={8}
-            key={currency.id}
+            key={currency.uuid}
           >
-            <Link to={`/crypto/${currency.id}`}>
+            <Link to={`/crypto/${currency.uuid}`}>
               <Card
                 title={`${currency.rank}.${currency.name}`}
                 extra={
