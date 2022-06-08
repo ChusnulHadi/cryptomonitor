@@ -184,7 +184,7 @@ const CryptoDetails = () => {
               {cryptoDetails.name} Link
             </Title>
             {cryptoDetails.links?.map((link) => (
-              <Row className="coin-link" key={link.name}>
+              <Row className="coin-link" key={link.uuid}>
                 <Title level={5} className="link-name">
                   {link.type}
                 </Title>
