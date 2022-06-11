@@ -6,7 +6,7 @@ import { Navbar, Cryptocurrencies, CryptoDetails, News, Homepage } from './compo
 
 import './App.css'
 
-
+//setup layout dan router di app.js menggunakan React Router DOM
 const App = () => {
     return (
         <div className='app'>
@@ -18,7 +18,6 @@ const App = () => {
                     <div className='routes'>
                         <Routes>
                             <Route exact path="/" element={<Homepage />} />
-                            {/* <Route exact path="/exchanges" element={<Exchanges />} /> */}
                             <Route exact path="/cryptocurrencies" element={<Cryptocurrencies />} />
                             <Route exact path="/crypto/:coinId" element={<CryptoDetails />} />
                             <Route exact path="/news" element={<News />} />

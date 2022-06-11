@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+// HTMLReactParses mengubah string html menjadi React component
 import HTMLReactParser from "html-react-parser";
+// useParams memungkinkan menerima parameter dari url
 import { useParams } from "react-router-dom";
 import millify from "millify";
 import { Col, Row, Typography, Select } from "antd";
@@ -14,19 +16,25 @@ import {
   CheckOutlined,
 } from "@ant-design/icons";
 
+//import fetching data untuk cryptoDetails dan CryptoHistory dan cryptoApi
 import {
   useGetCryptoDetailsQuery,
   useGetCryptoHistoryQuery,
 } from "../services/cryptoApi";
+
+//import component lineChart untuk menampilkan grafik cryptocurrency
 import LineChart from "./LineChart";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 
 const CryptoDetails = () => {
+  // setup state untuk menampung data cainId berdasarkan parameter url
   const { coinId } = useParams();
   const [timePeriod, setTimePeriod] = useState("7d");
+  //setup state untuk fetching data cryptocurrency berdasarkan coinId
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
+  //setup state untuk fetching data history cryptocurrency berdasarkan coinId dan timePeriod
   const { data: coinHistory } = useGetCryptoHistoryQuery({
     coinId,
     timePeriod,
@@ -37,6 +45,7 @@ const CryptoDetails = () => {
 
   const time = ["3h", "24h", "7d", "30d", "3m", "1y", "3y", "5y"];
 
+  //membuat array object yang menampung data cryptocurrency yang akan ditampilkan di halaman ini
   const stats = [
     {
       title: "Price to USD",
@@ -70,6 +79,7 @@ const CryptoDetails = () => {
     },
   ];
 
+  //membuat array object yang menampung data cryptocurrency yang akan ditampilkan di halaman ini
   const genericStats = [
     {
       title: "Number Of Markets",
@@ -124,15 +134,18 @@ const CryptoDetails = () => {
         placeholder="Select Time Period"
         onChange={(value) => setTimePeriod(value)}
       >
+        {/* dropdown untuk memilih timeperiod */}
         {time.map((date) => (
           <Option key={date}>{date}</Option>
         ))}
       </Select>
+      {/* memanggil component lineChart dengan properties coinHistory, currentPrice dan coinName */}
       <LineChart
         coinHistory={coinHistory}
         currentPrice={millify(cryptoDetails?.price)}
         coinName={cryptoDetails?.name}
       />
+      {/* menampilkan status coin saat ini */}
       <Col className="stats-container">
         <Col className="coin-value-statistics">
           <Col className="coin-value-statistics-heading">
@@ -151,6 +164,7 @@ const CryptoDetails = () => {
             </Col>
           ))}
         </Col>
+        {/* menampilkan status lain dari coin */}
         <Col className="other-stats-info">
           <Col className="coin-value-statistics-heading">
             <Title level={3} className="coin-details-heading">

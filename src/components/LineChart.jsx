@@ -1,7 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 import { Col, Row, Typography } from "antd";
-
+//importing components dari chart.js
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,6 +13,7 @@ import {
   Legend,
 } from "chart.js";
 
+//register component untuk chartjs
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -23,16 +24,15 @@ ChartJS.register(
   Legend
 );
 
-// const { Title } = Typography;
-
+//components menerima properties berupa data cryptocurrency yang akan ditampilkan di chartjs
 const LineChart = ({ coinHistory, currentPrice, coinName }) => {
   const coinPrice = [];
   const coinTimestamp = [];
 
+  //looping untuk fetch api dari coinHistory untuk mengambil data price dan timestamp
   for (let i = coinHistory?.data?.history?.length - 1; i > 0; i--) {
     coinPrice.push(coinHistory.data.history[i].price);
   }
-
   for (let i = coinHistory?.data?.history?.length - 1; i > 0; i--) {
     coinTimestamp.push(
       new Date(

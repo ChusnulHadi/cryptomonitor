@@ -1,17 +1,24 @@
 import React from "react";
-import millify from "millify";
+//millify mengubah angka panjang menjadi format yang mudah dibaca
+import millify from "millify"; 
+//layout dari antd
 import { Typography, Row, Col, Statistic } from "antd";
 import { Link } from "react-router-dom";
 
+//import fungsi fetch api dari forlder service/cryptoApi
 import { useGetCryptosQuery } from "../services/cryptoApi";
+//import components dari folder components
 import { Cryptocurrencies, News } from "../components";
 
 const { Title } = Typography;
 
 const Homepage = () => {
+  // setup state untuk menampung data cryptocurrency
   const { data, isFetching } = useGetCryptosQuery(10);
+  //setup state untuk menampung data news
   const globalStats = data?.data?.stats;
 
+  //rendering berdasarkan nilai isFetching
   if (isFetching) {
     return "Loading...";
   }
@@ -21,6 +28,7 @@ const Homepage = () => {
       <Title level={2} className="heading">
         Global Crypto Stats
       </Title>
+      {/* menampilkan seluruh informasi crypto di dunia saat ini */}
       <Row>
         <Col span={12}>
           <Statistic title="Total Cryptocurrencies" value={globalStats.total} />
@@ -58,6 +66,7 @@ const Homepage = () => {
           <Link to="/cryptocurrencies">Show More</Link>
         </Title>
       </div>
+      {/* memanggil components cryptocurrencies dengan properties simplified */}
       <Cryptocurrencies simplified />
       <div className="home-heading-container">
         <Title level={2} className="home-title">
@@ -67,6 +76,7 @@ const Homepage = () => {
           <Link to="/news">Show More</Link>
         </Title>
       </div>
+      {/* memanggil components news dengan properties simplified */}
       <News simplified />
     </>
   );
