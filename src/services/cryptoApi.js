@@ -18,15 +18,15 @@ export const cryptoApi = createApi({
     endpoints: (builder) => ({
         //get all cryptocurrencies
         getCryptos: builder.query({
-            query: (count) => createRequest(`./coins?limit=${count}`),
+            query: (count) => createRequest(`/coins?limit=${count}`),
         }),
         //get cryptocurrency details by id
         getCryptoDetails: builder.query({
-            query: (coinId) => createRequest(`./coin/${coinId}`)
+            query: (coinId) => createRequest(`/coin/${coinId}`)
         }),
         //get cryptocurrency news by id
         getCryptoHistory: builder.query({
-            query: ({ coinId, timePeriod }) => createRequest(`./coin/${coinId}/history?timePeriod=${timePeriod}`)
+            query: ({ coinId, timePeriod }) => createRequest(`/coin/${coinId}/history?timePeriod=${timePeriod}`)
         })
     })
 });
